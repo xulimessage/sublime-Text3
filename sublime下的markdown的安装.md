@@ -1,3 +1,4 @@
+[TOC]
 #Sublime Text3的Markdown配置
 
 使用了Sublime Text3一段时间感觉不错.它除了可以进行Markdown写作外，最重要的是支持各种代码高亮，以及强大的插件拓展。并且支持Windows和Mac OS双平台。之前开始安装的时候网上搜了一下，发现都是Sublime Text2的教程.在3中有些配置发生了变化.这里以Windows为例,分享一下安装Markdown的教程.至于Mac平台，我推荐大家使用Macdown进行Markdown写作。
@@ -76,16 +77,65 @@ FD032C30 AD5E7241 4EAA66ED 167D91FB
 —— END LICENSE ——
 ```
 
-
 ##2.安装Package Control
 打开Sublime Text3，按下组合键Ctrl + `，出现控制台，输入:
 ```
 import urllib2,os; pf='Package Control.sublime-package'; ipp = sublime.installed_packages_path(); os.makedirs( ipp ) if not os.path.exists(ipp) else None; urllib2.install_opener( urllib2.build_opener( urllib2.ProxyHandler( ))); open( os.path.join( ipp, pf), 'wb' ).write( urllib2.urlopen( 'http://sublime.wbond.net/' +pf.replace( ' ','%20' )).read()); print( 'Please restart Sublime Text to finish installation')
 ```
-
 安装完成后打开Preferences就能看到,打开Package Control，输入install package，稍等一会就会出现很多插件，搜索你要的插件然后安装.
 
 ##3.安装Markdown Preview和Markdown Editing
 打开Package Control，输入install package，然后分别输入Markdown Preview和Markdown Editing进行安装。安装完成后点击右下角就能选择Markdown,Markdown GFM和MultiMarkdown进行写作了。
 
+##4.设置Sublime Text3主题皮肤
 
+一个好的主题皮肤能让界面更美观，写作更愉快。这里推荐一个主题:Spacegray。打开Package Control，输入install package，然后输入Spacegray.安装完成后在Preferrences->Color Scheme选择主题.
+
+##5.关闭文件记忆以及主题皮肤应用到Markdown
+Sublime Text3默认每次打开都会自动打开上次保存的文件,可以这样进行关闭.
+打开Preferences->Settings User,输入:
+```
+{
+    "hot_exit": false,
+    "remember_open_files": false,
+}
+```
+其中,"hot_exit": false，"remember_open_files": false表示关闭自动打开上次保存的文件。
+如果应用主题皮肤后发现切换Markdown界面无变化,那么在Settings User输入:
+```
+
+    "color_scheme": "Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme",
+    "font_size": 11,
+    "ignored_packages":
+    [
+        "Markdown",
+        "Vintage"
+    ]
+}
+```
+完整代码:
+```
+{
+    "hot_exit": false,
+    "remember_open_files": false,
+    "color_scheme": "Packages/MarkdownEditing/MarkdownEditor-Dark.tmTheme",
+    "font_size": 11,
+    "ignored_packages":
+    [
+        "Markdown",
+        "Vintage"
+    ]
+}
+```
+
+##6.设置markdown在浏览器中打开快捷键
+Sublime Text3不支持Markdown实时预览,所以我们只能在浏览器中查看.可以绑定快捷键进行查看。打开Preferences->Key Bindings User,输入:
+
+```
+[
+    { "keys": ["ctrl+r"], "command": "markdown_preview", "args":   {"target": "browser", "parser":"markdown"} }
+]
+```
+其中,"ctrl+r"表示快捷键，可以更改。
+##小结
+在Sublime Text3中,所有Default代码都不能直接更改，而是要在User里面把要更改的代码复制过来再进行更改,这是与之前版本不同的地方.
